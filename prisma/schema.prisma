@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  domains   Domain[]
+  pixels    Pixel[]
+  channels  Channel[]
+  funnels   Funnel[]
+  postbacks Postback[]
+}
+
+model Domain {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  funnels Funnel[]
+}
+
+model Pixel {
+  id              String   @id @default(cuid())
+  name            String
+  pixelId         String
+  accessToken     String
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  funnels Funnel[]
+  postbacks Postback[]
+}
+
+model Channel {
+  id          String   @id @default(cuid())
+  name        String
+  botName     String
+  botToken    String   @unique
+  channelId   String?
+  channelType String?   // "private" | "public"
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  funnels Funnel[]
+}
+
+model Funnel {
+  id                    String   @id @default(cuid())
+  name                  String
+  pixelId               String
+  pixel                 Pixel    @relation(fields: [pixelId], references: [id], onDelete: Cascade)
+  domainId              String
+  domain                Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  channelId             String
+  channel               Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  requestEntry          Boolean  @default(false)
+  urls                  String[]
+  trackingScriptId      String   @unique @default(cuid())
+  telegramInviteLink    String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  events Event[]
+  postbacks Postback[]
+}
+
+model Postback {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  type      String   // "ViewPage" | "ClickButton" | "EnterChannel" | "ExitChannel"
+  pixelId   String?
+  pixel     Pixel?   @relation(fields: [pixelId], references: [id], onDelete: SetNull)
+  funnelId  String?
+  funnel    Funnel?  @relation(fields: [funnelId], references: [id], onDelete: SetNull)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  funnelId    String
+  funnel      Funnel   @relation(fields: [funnelId], references: [id], onDelete: Cascade)
+  type        String   // "PageView" | "Click" | "EnterChannel" | "ExitChannel"
+  url         String?
+  userAgent   String?
+  ip          String?
+  referer     String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([funnelId, type, createdAt])
+  @@index([funnelId, createdAt])
+}
+
+
+
