@@ -48,7 +48,12 @@ export class TelegramService {
     try {
       const bot = new TelegramBot(botToken, { polling: false })
       const me = await bot.getMe()
-      return me
+      // Converter o tipo User do Telegram para o formato esperado
+      return {
+        id: me.id,
+        username: me.username || '',
+        first_name: me.first_name || '',
+      }
     } catch (error) {
       console.error('Erro ao obter informações do bot:', error)
       return null
