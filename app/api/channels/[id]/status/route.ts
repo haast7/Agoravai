@@ -34,10 +34,15 @@ export async function GET(
     }
 
     if (channel.channelId) {
-      channelStatus = await telegramService.checkChannelConnection(
+      const connectionResult = await telegramService.checkChannelConnection(
         channel.botToken,
         channel.channelId
       )
+      channelStatus = {
+        connected: connectionResult.connected,
+        channelType: connectionResult.channelType || null,
+        interference: connectionResult.interference || false,
+      }
     }
 
     return NextResponse.json({
