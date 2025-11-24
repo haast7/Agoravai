@@ -23,21 +23,49 @@ export async function GET(request: NextRequest) {
       })
     }
 
+    // Verificar se DATABASE_URL está configurada
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          error: 'DATABASE_URL não configurada',
+          tip: 'Configure a variável DATABASE_URL no Vercel (Settings → Environment Variables)',
+        },
+        { status: 500 }
+      )
+    }
+
     // Tentar executar prisma db push via execSync
     // Isso vai criar todas as tabelas no banco
+    let pushSuccess = false
     try {
       execSync('npx prisma db push --accept-data-loss', {
         stdio: 'pipe',
         env: process.env,
+        cwd: process.cwd(),
       })
+      pushSuccess = true
     } catch (execError: any) {
-      // Se execSync falhar, tentar verificar conexão manualmente
+      console.error('Erro ao executar prisma db push:', execError.message)
+      // Continuar para tentar verificar conexão manualmente
+    }
+
+    // Tentar verificar conexão e criar tabelas manualmente se necessário
+    try {
       await prisma.$connect()
       
-      // Tentar criar uma tabela de teste para verificar se funciona
+      // Tentar verificar se as tabelas existem
       await prisma.$executeRawUnsafe(`
         SELECT 1;
       `)
+    } catch (dbError: any) {
+      return NextResponse.json(
+        {
+          error: 'Erro ao conectar ao banco de dados',
+          details: dbError.message,
+          tip: 'Verifique se a DATABASE_URL está correta e se o banco está acessível',
+        },
+        { status: 500 }
+      )
     }
 
     // Verificar se funcionou

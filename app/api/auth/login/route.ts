@@ -13,6 +13,38 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Verificar se DATABASE_URL está configurada
+    if (!process.env.DATABASE_URL) {
+      console.error('DATABASE_URL não configurada')
+      return NextResponse.json(
+        { error: 'Configuração do banco de dados não encontrada. Verifique as variáveis de ambiente.' },
+        { status: 500 }
+      )
+    }
+
+    // Verificar se JWT_SECRET está configurada
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET não configurada')
+      return NextResponse.json(
+        { error: 'Configuração de segurança não encontrada. Verifique as variáveis de ambiente.' },
+        { status: 500 }
+      )
+    }
+
+    // Tentar conectar ao banco
+    try {
+      await prisma.$connect()
+    } catch (dbError: any) {
+      console.error('Erro ao conectar ao banco:', dbError)
+      return NextResponse.json(
+        { 
+          error: 'Erro ao conectar ao banco de dados',
+          details: process.env.NODE_ENV === 'development' ? dbError.message : undefined
+        },
+        { status: 500 }
+      )
+    }
+
     const user = await prisma.user.findUnique({
       where: { email },
     })
@@ -46,10 +78,29 @@ export async function POST(request: NextRequest) {
         name: user.name,
       },
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro no login:', error)
+    
+    // Mensagem mais específica para erros conhecidos
+    if (error.code === 'P1001' || error.message?.includes('Can\'t reach database server')) {
+      return NextResponse.json(
+        { error: 'Não foi possível conectar ao banco de dados. Verifique se o banco está configurado e acessível.' },
+        { status: 500 }
+      )
+    }
+
+    if (error.code === 'P2025' || error.message?.includes('Record to update not found')) {
+      return NextResponse.json(
+        { error: 'Usuário não encontrado' },
+        { status: 404 }
+      )
+    }
+
     return NextResponse.json(
-      { error: 'Erro interno do servidor' },
+      { 
+        error: 'Erro interno do servidor',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     )
   }
