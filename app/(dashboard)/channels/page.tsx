@@ -299,7 +299,13 @@ export default function ChannelsPage() {
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false)
-          setFormData({ name: '', botName: '', botToken: '' })
+          setFormData({ 
+            name: '', 
+            botName: '', 
+            botToken: '',
+            channelId: '',
+            channelType: 'private' as 'private' | 'public'
+          })
           setError('')
         }}
         title="Novo Canal"
@@ -406,7 +412,7 @@ export default function ChannelsPage() {
                   botName: '', 
                   botToken: '',
                   channelId: '',
-                  channelType: 'private',
+                  channelType: 'private' as 'private' | 'public',
                 })
                 setError('')
               }}
