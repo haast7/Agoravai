@@ -40,10 +40,27 @@ export async function POST(
         signal: AbortSignal.timeout(10000),
       })
 
+      // Ler o corpo da resposta se possível
+      let responseBody = null
+      try {
+        const contentType = response.headers.get('content-type')
+        if (contentType && contentType.includes('application/json')) {
+          responseBody = await response.json()
+        } else {
+          responseBody = await response.text()
+        }
+      } catch (e) {
+        // Ignorar erro ao ler corpo
+      }
+
       return NextResponse.json({
         success: response.ok,
         status: response.status,
         statusText: response.statusText,
+        message: response.ok 
+          ? 'Postback testado com sucesso!' 
+          : `Servidor retornou status ${response.status}: ${response.statusText}`,
+        responseBody: responseBody ? (typeof responseBody === 'string' ? responseBody.substring(0, 200) : JSON.stringify(responseBody).substring(0, 200)) : null,
       })
     } catch (fetchError: any) {
       // Tratar diferentes tipos de erro

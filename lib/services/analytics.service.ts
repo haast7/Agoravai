@@ -41,6 +41,37 @@ export class AnalyticsService {
       },
     }
 
+    // Log para debug
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`\n📊 [Analytics] Buscando métricas para userId: ${userId}`)
+      console.log(`📊 [Analytics] Filtro de funil:`, JSON.stringify(funnelFilter, null, 2))
+      console.log(`📊 [Analytics] Período: ${start.toISOString()} até ${now.toISOString()}`)
+      
+      // Verificar quantos eventos existem no total
+      const totalEvents = await prisma.event.count({
+        where: { funnel: funnelFilter },
+      })
+      console.log(`📊 [Analytics] Total de eventos encontrados: ${totalEvents}`)
+      
+      // Listar alguns eventos para debug
+      const sampleEvents = await prisma.event.findMany({
+        where: { funnel: funnelFilter },
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          type: true,
+          createdAt: true,
+          funnel: { select: { name: true } },
+        },
+      })
+      console.log(`📊 [Analytics] Últimos eventos:`, sampleEvents.map(e => ({
+        type: e.type,
+        createdAt: e.createdAt.toISOString(),
+        funnel: e.funnel.name,
+      })))
+    }
+    
     // Buscar eventos do período atual
     const [pageviews, clicks, entries, exits] = await Promise.all([
       prisma.event.count({ where: { ...where, type: 'PageView' } }),
@@ -48,6 +79,15 @@ export class AnalyticsService {
       prisma.event.count({ where: { ...where, type: 'EnterChannel' } }),
       prisma.event.count({ where: { ...where, type: 'ExitChannel' } }),
     ])
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`📊 [Analytics] Contadores encontrados:`, {
+        pageviews,
+        clicks,
+        entries,
+        exits,
+      })
+    }
 
     // Buscar eventos do período anterior
     const [prevPageviews, prevClicks, prevEntries, prevExits] = await Promise.all([
@@ -106,19 +146,24 @@ export class AnalyticsService {
     const now = endDate || new Date()
     const start = startDate || new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 
-    const where: any = {
+    // Construir filtro através dos funis do usuário
+    const funnelFilter: any = {
       userId,
+    }
+    
+    if (funnelId) {
+      funnelFilter.id = funnelId
+    } else if (pixelId) {
+      funnelFilter.pixelId = pixelId
+    }
+
+    const where: any = {
+      funnel: funnelFilter, // Filtrar através da relação funnel
       type,
       createdAt: {
         gte: start,
         lte: now,
       },
-    }
-
-    if (funnelId) {
-      where.funnelId = funnelId
-    } else if (pixelId) {
-      where.funnel = { pixelId }
     }
 
     const events = await prisma.event.findMany({

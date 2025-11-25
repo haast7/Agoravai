@@ -126,3 +126,5 @@ Para ver erros detalhados:
 3. Verifique se o banco de dados está ativo e acessível
 4. Tente acessar `/api/setup` para verificar a conexão
 
+
+

@@ -12,6 +12,7 @@ import {
   CreditCard,
   Code,
   LogOut,
+  Bug,
 } from 'lucide-react'
 import { useAuth } from '@/lib/hooks/useAuth'
 import { cn } from '@/lib/utils'
@@ -25,6 +26,7 @@ const menuItems = [
   { href: '/messages', label: 'Mensagens', icon: MessageSquare },
   { href: '/subscription', label: 'Assinatura', icon: CreditCard },
   { href: '/postbacks', label: 'Postbacks', icon: Code },
+  { href: '/debug', label: 'Debug', icon: Bug },
 ]
 
 export function Sidebar() {

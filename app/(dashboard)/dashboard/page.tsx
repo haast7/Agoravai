@@ -10,6 +10,7 @@ import {
   UserMinus,
   TrendingDown,
   TrendingUp,
+  RefreshCw,
 } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { cn } from '@/lib/utils'
@@ -20,25 +21,39 @@ export default function DashboardPage() {
   const [retention, setRetention] = useState<any[]>([])
   const [activeTab, setActiveTab] = useState<'PageView' | 'Click' | 'EnterChannel' | 'ExitChannel'>('PageView')
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     loadData()
   }, [])
 
-  const loadData = async () => {
+  const loadData = async (showLoading = true) => {
     try {
+      if (showLoading) setLoading(true)
+      else setRefreshing(true)
+      
+      console.log('🔄 [Dashboard] Carregando dados...')
       const [metricsData, chartDataRes, retentionData] = await Promise.all([
         analyticsApi.getDashboard(),
         analyticsApi.getChart({ type: activeTab }),
         analyticsApi.getRetention(),
       ])
+      
+      console.log('✅ [Dashboard] Dados carregados:', {
+        pageviews: metricsData?.pageviews,
+        clicks: metricsData?.clicks,
+        entries: metricsData?.entries,
+        chartDataPoints: chartDataRes?.length,
+      })
+      
       setMetrics(metricsData)
       setChartData(chartDataRes)
       setRetention(retentionData)
     } catch (error) {
-      console.error('Erro ao carregar dados:', error)
+      console.error('❌ [Dashboard] Erro ao carregar dados:', error)
     } finally {
       setLoading(false)
+      setRefreshing(false)
     }
   }
 
@@ -105,7 +120,20 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+        <button
+          onClick={() => loadData(false)}
+          disabled={refreshing}
+          className={cn(
+            'flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90',
+            refreshing && 'opacity-50 cursor-not-allowed'
+          )}
+        >
+          <RefreshCw className={cn('h-4 w-4', refreshing && 'animate-spin')} />
+          {refreshing ? 'Atualizando...' : 'Atualizar'}
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {metricCards.map((card) => {
@@ -240,6 +268,7 @@ export default function DashboardPage() {
     </div>
   )
 }
+
 
 
 

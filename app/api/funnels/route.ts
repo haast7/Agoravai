@@ -115,6 +115,8 @@ export async function POST(request: NextRequest) {
 
     // Criar funil primeiro para obter o ID
     const trackingScriptId = generateTrackingId()
+    console.log(`\n📝 [Funnel Create] Criando funil "${name}" com trackingScriptId: "${trackingScriptId}"`)
+    
     const funnel = await prisma.funnel.create({
       data: {
         name,
@@ -128,6 +130,12 @@ export async function POST(request: NextRequest) {
         telegramInviteLink: null, // Será atualizado abaixo
       },
     })
+    
+    console.log(`✅ [Funnel Create] Funil criado com sucesso!`)
+    console.log(`   ID: ${funnel.id}`)
+    console.log(`   Nome: ${funnel.name}`)
+    console.log(`   Tracking Script ID: ${funnel.trackingScriptId}`)
+    console.log(`   URL do Script: http://localhost:3000/api/tracking/${funnel.trackingScriptId}.js`)
 
     // Gerar link de convite do Telegram com parâmetros de tracking
     let telegramInviteLink = null

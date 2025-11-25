@@ -171,7 +171,14 @@ export const postbacksApi = {
       method: 'DELETE',
     }),
   test: (id: string) =>
-    apiRequest<{ success: boolean; status?: number; statusText?: string; error?: string }>(
+    apiRequest<{ 
+      success: boolean
+      status?: number
+      statusText?: string
+      error?: string
+      message?: string
+      responseBody?: string | null
+    }>(
       `/postbacks/${id}/test`,
       {
         method: 'POST',

@@ -79,12 +79,16 @@ export default function PostbacksPage() {
     try {
       const result = await postbacksApi.test(id)
       if (result.success) {
-        alert(`Postback testado com sucesso! Status: ${result.status || 'OK'}`)
+        alert(`✅ Postback testado com sucesso!\nStatus: ${result.status || 'OK'}\n${result.message || ''}`)
       } else {
-        alert(`Erro ao testar postback: ${result.error || 'Erro desconhecido'}`)
+        // Mesmo que não seja "success", pode ser que a requisição foi enviada corretamente
+        // mas o servidor retornou um status diferente (ex: 404, 500)
+        const message = result.message || result.error || 'Erro desconhecido'
+        alert(`⚠️ Resposta do servidor:\nStatus: ${result.status || 'N/A'}\n${message}`)
       }
     } catch (error: any) {
-      alert(`Erro: ${error.message}`)
+      // Erro de rede ou timeout
+      alert(`❌ Erro ao testar postback:\n${error.message || 'Erro desconhecido'}`)
     } finally {
       setTesting(null)
     }

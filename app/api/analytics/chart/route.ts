@@ -29,10 +29,13 @@ export async function GET(request: NextRequest) {
     )
 
     return NextResponse.json(data)
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao buscar dados do gráfico:', error)
     return NextResponse.json(
-      { error: 'Erro ao buscar dados do gráfico' },
+      { 
+        error: 'Erro ao buscar dados do gráfico',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     )
   }

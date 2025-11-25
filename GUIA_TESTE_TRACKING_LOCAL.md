@@ -2,6 +2,8 @@
 
 Este guia vai te ajudar a testar **TUDO** do tracking localmente antes de ir para produção.
 
+> 💡 **Quer um guia mais rápido e direto?** Consulte `TESTE_PASSO_A_PASSO.md` para um guia passo a passo prático!
+
 ---
 
 ## ✅ O que você já fez
