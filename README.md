@@ -43,8 +43,10 @@ Acesse [http://localhost:3000](http://localhost:3000)
 ## 📚 Documentação
 
 - **`GUIA_CONFIGURACAO.md`** - Guia completo de configuração passo a passo
-- **`GUIA_TESTE_LOCAL.md`** - Como testar localmente
-- **`GUIA_DEPLOY.md`** - Como fazer deploy online (Vercel, Railway, etc.)
+- **`GUIA_TESTE_COMPLETO_LOCAL.md`** ⭐ - **Guia completo para testar TUDO localmente primeiro**
+- **`GUIA_TESTE_LOCAL.md`** - Resumo rápido de teste local
+- **`GUIA_DEPLOY.md`** - Como fazer deploy online (Vercel, Railway, etc.) - **Use depois de testar localmente**
+- **`TROUBLESHOOTING.md`** - Solução de problemas comuns
 
 ## 🚀 Deploy Rápido
 
