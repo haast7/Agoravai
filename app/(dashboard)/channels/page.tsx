@@ -37,15 +37,23 @@ export default function ChannelsPage() {
       const data = await channelsApi.list()
       setChannels(data)
       
-      // Carregar status de cada canal
-      for (const channel of data) {
+      // Carregar status de cada canal em paralelo (mais rápido)
+      const statusPromises = data.map(async (channel) => {
         try {
           const status = await channelsApi.getStatus(channel.id)
-          setStatuses((prev) => ({ ...prev, [channel.id]: status }))
+          return { channelId: channel.id, status }
         } catch (error) {
           console.error('Erro ao carregar status:', error)
+          return { channelId: channel.id, status: null }
         }
-      }
+      })
+      
+      const statusResults = await Promise.all(statusPromises)
+      statusResults.forEach(({ channelId, status }) => {
+        if (status) {
+          setStatuses((prev) => ({ ...prev, [channelId]: status }))
+        }
+      })
     } catch (error: any) {
       setError(error.message)
     }
