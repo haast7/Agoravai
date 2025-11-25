@@ -171,13 +171,36 @@ Para testar entrada/saída do grupo, você precisa expor o localhost:
 
 ### 5.1 Instalar e Configurar ngrok
 
+**Passo 1: Criar conta no ngrok (Grátis)**
+1. Acesse: https://dashboard.ngrok.com/signup
+2. Crie uma conta (é grátis!)
+3. Faça login
+
+**Passo 2: Obter Authtoken**
+1. Após login, vá em: https://dashboard.ngrok.com/get-started/your-authtoken
+2. Copie o token (algo como: `2abc123def456ghi789jkl012mno345pqr678stu901vwx234yz`)
+
+**Passo 3: Configurar ngrok**
 ```bash
-# Instalar ngrok
+# Instalar ngrok (se ainda não instalou)
 # Windows: Baixe em https://ngrok.com/download
 # Mac: brew install ngrok
 
-# Expor localhost
+# Configurar authtoken (substitua SEU_TOKEN pelo token copiado)
+ngrok config add-authtoken SEU_TOKEN
+
+# Agora pode usar normalmente
 ngrok http 3000
+```
+
+**Passo 4: Expor localhost**
+```bash
+ngrok http 3000
+```
+
+Você vai ver algo como:
+```
+Forwarding  https://abc123.ngrok.io -> http://localhost:3000
 ```
 
 Você vai ver:
