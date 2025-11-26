@@ -54,8 +54,11 @@ npx prisma db push
 
 **Se você está usando Supabase:**
 - Verifique se o projeto está ativo
-- Use a **Connection String** completa (não a Connection Pooling)
-- Formato: `postgresql://postgres:[SENHA]@[HOST]:5432/postgres`
+- ⚠️ **USE SESSION POOLER!** (NÃO use Direct Connection)
+- No Supabase: Settings → Database → Connection string
+- Configure: **Source:** `Connection Pooling`, **Method:** `Session mode`
+- Formato: `postgresql://postgres.abc123:[SENHA]@[HOST].pooler.supabase.com:6543/postgres`
+- A URL deve conter `.pooler.supabase.com` e porta `6543`
 
 **Se você está usando Railway:**
 - Verifique se o serviço PostgreSQL está rodando

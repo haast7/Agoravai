@@ -1,4 +1,4 @@
-# 🚀 Guia de Deploy - Track4You
+# 🚀 Guia de Deploy - Track Pixel
 
 Este guia mostra como deixar seu projeto online para testar em produção.
 

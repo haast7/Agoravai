@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
         // Adicionar parâmetros de tracking ao link
         const url = new URL(inviteLink)
         url.searchParams.set('funnel', funnel.id)
-        url.searchParams.set('ref', 'track4you')
+        url.searchParams.set('ref', 'trackpixel')
         telegramInviteLink = url.toString()
       }
     } else {

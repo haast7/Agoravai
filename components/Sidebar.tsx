@@ -36,14 +36,8 @@ export function Sidebar() {
   return (
     <div className="flex h-screen w-64 flex-col bg-gray-900">
       <div className="p-6">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-xl font-bold text-white">
-            4
-          </div>
-          <div>
-            <div className="font-bold text-white">TRACKOYOU</div>
-            <div className="text-xs text-gray-400">TRACKEAMENTO DE DADOS</div>
-          </div>
+        <div className="flex items-center justify-center">
+          <img src="/logo.png" alt="Track Pixel" className="h-12 w-auto object-contain" />
         </div>
       </div>
 

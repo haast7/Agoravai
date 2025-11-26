@@ -8,7 +8,7 @@
 - Bot criado no Telegram
 - Canal/Grupo criado no Telegram
 - Bot adicionado como administrador do grupo
-- Canal cadastrado no Track4You
+- Canal cadastrado no Track Pixel
 
 ---
 
@@ -16,7 +16,7 @@
 
 ### 1️⃣ Obter Token do Bot
 
-1. Abra o Track4You no navegador (`http://localhost:3000`)
+1. Abra o Track Pixel no navegador (`http://localhost:3000`)
 2. Vá em **"Canais"**
 3. Clique no canal que você quer testar
 4. **Copie o Token do Bot** (parece: `123456789:ABCdefGHIjklMNOpqrsTUVwxyz`)
@@ -76,7 +76,7 @@ https://api.telegram.org/botSEU_TOKEN_AQUI/getWebhookInfo
 
 #### Opção A: Entrar pelo Link do Funil (Recomendado)
 
-1. No Track4You, vá em **"Funis"**
+1. No Track Pixel, vá em **"Funis"**
 2. Clique no funil que está associado ao canal
 3. Clique em **"Tutorial"**
 4. **Copie o Link do Telegram** (parece: `https://t.me/...`)
@@ -162,7 +162,7 @@ Se quiser verificar diretamente no banco:
 **Solução:**
 1. Adicione o bot **@userinfobot** no grupo
 2. Ele vai mostrar o ID do grupo (ex: `-1001234567890`)
-3. No Track4You, vá em **"Canais"** → Clique no canal
+3. No Track Pixel, vá em **"Canais"** → Clique no canal
 4. Verifique se o **ID do Canal** está correto
 5. Se estiver errado, edite e salve novamente
 
@@ -188,7 +188,7 @@ Se quiser verificar diretamente no banco:
 **Causa:** Canal não está associado ao funil
 
 **Solução:**
-1. No Track4You, vá em **"Funis"**
+1. No Track Pixel, vá em **"Funis"**
 2. Clique no funil
 3. Verifique se o **Canal** está selecionado
 4. Se não estiver, edite o funil e selecione o canal
@@ -202,9 +202,9 @@ Antes de testar, confirme:
 - [ ] ngrok está rodando (`ngrok http 3000`)
 - [ ] Next.js está rodando (`npm run dev`)
 - [ ] Bot é administrador do grupo
-- [ ] `channelId` no Track4You corresponde ao ID real do grupo
+- [ ] `channelId` no Track Pixel corresponde ao ID real do grupo
 - [ ] Webhook configurado via `setWebhook`
-- [ ] Canal está associado ao funil no Track4You
+- [ ] Canal está associado ao funil no Track Pixel
 
 ---
 

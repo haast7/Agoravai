@@ -6,8 +6,11 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Track4You - Tracking de Conversões",
+  title: "Track Pixel - Tracking de Conversões",
   description: "Sistema de tracking de conversões integrado com Meta Pixel e Telegram",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

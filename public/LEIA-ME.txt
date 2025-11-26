@@ -1,0 +1,23 @@
+===========================================
+INSTRUÇÕES PARA ADICIONAR FAVICON E LOGO
+===========================================
+
+Coloque suas imagens nesta pasta (public/) com os seguintes nomes:
+
+1. FAVICON:
+   - Nome do arquivo: favicon.ico
+   - Formato recomendado: .ico (ou .png)
+   - Tamanho recomendado: 32x32 pixels ou 16x16 pixels
+
+2. LOGO:
+   - Nome do arquivo: logo.png
+   - Formato: .png (recomendado) ou .svg
+   - Tamanho recomendado: 40x40 pixels ou maior (será redimensionado automaticamente)
+
+IMPORTANTE:
+- O favicon será usado na aba do navegador
+- A logo será exibida na Sidebar e na página de Login
+- Certifique-se de que as imagens têm fundo transparente (PNG) para melhor visualização
+
+Após adicionar as imagens, elas aparecerão automaticamente no sistema!
+

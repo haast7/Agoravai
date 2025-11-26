@@ -36,13 +36,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="w-full max-w-md rounded-lg bg-background-card p-8 shadow-xl">
         <div className="mb-6 text-center">
-          <div className="mb-2 flex items-center justify-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-2xl font-bold text-white">
-              4
-            </div>
-            <h1 className="text-2xl font-bold text-white">TRACKOYOU</h1>
+          <div className="mb-6 flex items-center justify-center">
+            <img src="/logo.png" alt="Track Pixel" className="h-16 w-auto object-contain" />
           </div>
-          <p className="text-gray-400">TRACKEAMENTO DE DADOS</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

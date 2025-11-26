@@ -1,4 +1,4 @@
-# 📊 Resumo da Implementação - Track4You
+# 📊 Resumo da Implementação - Track Pixel
 
 ## ✅ O que foi criado
 
@@ -214,7 +214,7 @@ pixel/
 ## 🎨 Design
 
 - Tema escuro (dark mode)
-- Cores principais: Roxo (#9333EA) e tons de cinza
+- Cores principais: Azul (#005599) e tons de cinza
 - Interface moderna e responsiva
 - Componentes reutilizáveis
 - Feedback visual em todas as ações

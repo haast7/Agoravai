@@ -1,4 +1,4 @@
-# 🧪 Guia de Teste de Tracking Local - Track4You
+# 🧪 Guia de Teste de Tracking Local - Track Pixel
 
 Este guia vai te ajudar a testar **TUDO** do tracking localmente antes de ir para produção.
 

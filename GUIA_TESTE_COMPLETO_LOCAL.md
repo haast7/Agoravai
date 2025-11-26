@@ -1,4 +1,4 @@
-# 🧪 Guia Completo de Teste Local - Track4You
+# 🧪 Guia Completo de Teste Local - Track Pixel
 
 Este guia vai te ajudar a testar **TUDO** localmente antes de fazer deploy. Siga na ordem!
 
@@ -39,7 +39,7 @@ Certifique-se de que seu `.env` tem:
 
 ```env
 # Banco de Dados LOCAL
-DATABASE_URL="postgresql://postgres:SUA_SENHA@localhost:5432/track4you?schema=public"
+DATABASE_URL="postgresql://postgres:SUA_SENHA@localhost:5432/trackpixel?schema=public"
 
 # JWT Secret (qualquer string longa)
 JWT_SECRET="minha-chave-secreta-local-123456789"
@@ -66,7 +66,7 @@ Abra o terminal e execute:
 psql -U postgres
 
 # Criar banco de dados
-CREATE DATABASE track4you;
+CREATE DATABASE trackpixel;
 
 # Sair do psql
 \q

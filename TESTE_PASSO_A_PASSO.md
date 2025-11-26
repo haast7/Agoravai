@@ -1,4 +1,4 @@
-# 🧪 Teste Passo a Passo - Track4You
+# 🧪 Teste Passo a Passo - Track Pixel
 
 Guia prático para testar tudo agora que o ngrok está configurado!
 
@@ -83,7 +83,7 @@ Crie um arquivo `teste.html` na pasta do projeto:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste Tracking Track4You</title>
+    <title>Teste Tracking Track Pixel</title>
     
     <!-- COLE O SCRIPT DO FUNIL AQUI -->
     <!-- Vá em Funis → Clique no seu funil → Copie o script -->
@@ -98,7 +98,7 @@ Crie um arquivo `teste.html` na pasta do projeto:
     </script>
 </head>
 <body style="font-family: Arial; padding: 40px; max-width: 800px; margin: 0 auto;">
-    <h1>🧪 Página de Teste - Track4You</h1>
+    <h1>🧪 Página de Teste - Track Pixel</h1>
     <p>Esta página está sendo rastreada pelo sistema.</p>
     
     <div style="margin: 30px 0;">

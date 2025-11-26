@@ -1,6 +1,6 @@
-# 🎯 Guia de Configuração - Track4You
+# 🎯 Guia de Configuração - Track Pixel
 
-Este guia vai te ajudar a configurar tudo que você precisa para usar o Track4You. Siga os passos na ordem!
+Este guia vai te ajudar a configurar tudo que você precisa para usar o Track Pixel. Siga os passos na ordem!
 
 ---
 
@@ -94,13 +94,13 @@ Se você não conseguir digitar a senha (problema comum no Windows), use este m�
 
 ```powershell
 $env:PGPASSWORD="SUA_SENHA_AQUI"
-& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE track4you;"
+& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE trackpixel;"
 ```
 
 **Exemplo:** Se sua senha for `minhasenha123`, digite:
 ```powershell
 $env:PGPASSWORD="minhasenha123"
-& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE track4you;"
+& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE trackpixel;"
 ```
 
 **O que vai acontecer:**
@@ -114,7 +114,7 @@ $env:PGPASSWORD="SUA_SENHA_AQUI"
 & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "\l"
 ```
 
-Isso vai listar todos os bancos. Você deve ver `track4you` na lista! ✅
+Isso vai listar todos os bancos. Você deve ver `trackpixel` na lista! ✅
 
 ---
 
@@ -124,7 +124,7 @@ Se você só quer criar o banco sem entrar no psql:
 
 ```powershell
 $env:PGPASSWORD="SUA_SENHA_AQUI"
-& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE track4you;"
+& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -c "CREATE DATABASE trackpixel;"
 ```
 
 Pronto! Banco criado em um comando só! 🎯
@@ -134,17 +134,17 @@ Pronto! Banco criado em um comando só! 🎯
 Agora que você está conectado, digite este comando (um por vez):
 
 ```sql
-CREATE DATABASE track4you;
+CREATE DATABASE trackpixel;
 ```
 
 **Atenção:**
 - Não esqueça o ponto e vírgula (`;`) no final!
-- O nome deve ser exatamente `track4you` (minúsculas)
+- O nome deve ser exatamente `trackpixel` (minúsculas)
 - Pressione Enter após digitar
 
 **O que você deve ver:**
 ```
-postgres=# CREATE DATABASE track4you;
+postgres=# CREATE DATABASE trackpixel;
 CREATE DATABASE
 postgres=#
 ```
@@ -168,7 +168,7 @@ Para ter certeza que o banco foi criado, você pode verificar:
 1. Conecte novamente: `psql -U postgres`
 2. Digite a senha
 3. Digite: `\l` (lista todos os bancos)
-4. Você deve ver `track4you` na lista
+4. Você deve ver `trackpixel` na lista
 5. Digite `\q` para sair
 
 ---
@@ -195,7 +195,7 @@ O PostgreSQL vem com um programa chamado "SQL Shell" que já funciona direto:
    - Username: **[Enter]** (usa postgres)
    - Password: **Digite sua senha** (não aparece na tela) e **[Enter]**
 5. Se aparecer `postgres=#`, você está conectado! ✅
-6. Agora digite: `CREATE DATABASE track4you;` e pressione Enter
+6. Agora digite: `CREATE DATABASE trackpixel;` e pressione Enter
 7. Digite `\q` para sair
 
 **Essa é a forma mais fácil!** 🎯
@@ -278,10 +278,10 @@ Quando um deles funcionar, você verá a mensagem pedindo a senha!
   - **Windows:** Use o pgAdmin (vem com o PostgreSQL) ou reinstale
   - **Mac/Linux:** Veja a documentação do PostgreSQL para resetar senha
 
-**Problema 3: "database track4you already exists"**
+**Problema 3: "database trackpixel already exists"**
 
 - Isso significa que o banco já existe! Não tem problema, pode continuar. ✅
-- Se quiser recriar, primeiro delete: `DROP DATABASE track4you;` e depois crie novamente
+- Se quiser recriar, primeiro delete: `DROP DATABASE trackpixel;` e depois crie novamente
 
 **Problema 4: "permission denied"**
 
@@ -295,7 +295,7 @@ Quando um deles funcionar, você verá a mensagem pedindo a senha!
 Se você conseguiu:
 - ✅ Conectar ao PostgreSQL (`psql -U postgres`)
 - ✅ Ver o prompt `postgres=#`
-- ✅ Executar `CREATE DATABASE track4you;` e ver `CREATE DATABASE`
+- ✅ Executar `CREATE DATABASE trackpixel;` e ver `CREATE DATABASE`
 - ✅ Sair com `\q`
 
 **Parabéns! O banco de dados está criado e pronto para uso!** 🎉
@@ -316,7 +316,7 @@ Substitua os valores abaixo pelos seus dados:
 
 ```env
 # Banco de Dados
-DATABASE_URL="postgresql://postgres:SUA_SENHA_AQUI@localhost:5432/track4you?schema=public"
+DATABASE_URL="postgresql://postgres:SUA_SENHA_AQUI@localhost:5432/trackpixel?schema=public"
 
 # JWT Secret (pode ser qualquer texto longo e aleatório)
 JWT_SECRET="minha-chave-secreta-super-segura-123456789"
@@ -330,7 +330,7 @@ META_API_VERSION="v21.0"
 
 **Exemplo de DATABASE_URL:**
 - Se sua senha do PostgreSQL é `minhasenha123`, ficaria:
-- `DATABASE_URL="postgresql://postgres:minhasenha123@localhost:5432/track4you?schema=public"`
+- `DATABASE_URL="postgresql://postgres:minhasenha123@localhost:5432/trackpixel?schema=public"`
 
 Salve o arquivo! ✅
 
@@ -407,9 +407,9 @@ Abra seu navegador e acesse: `http://localhost:3000`
 4. **COPIE O TOKEN** (ele só aparece uma vez!)
 5. Anote também o **ID do Pixel**
 
-### Passo 5.4: Adicionar Pixel no Track4You
+### Passo 5.4: Adicionar Pixel no Track Pixel
 
-1. No Track4You, vá em **"Pixels"**
+1. No Track Pixel, vá em **"Pixels"**
 2. Clique em **"+ Novo"**
 3. Preencha:
    - **Nome**: Um nome para identificar (ex: "Meu Pixel Principal")
@@ -428,17 +428,17 @@ Abra seu navegador e acesse: `http://localhost:3000`
 2. Procure por **@BotFather** (é um bot oficial do Telegram)
 3. Envie a mensagem: `/start`
 4. Envie: `/newbot`
-5. Digite um nome para seu bot (ex: "Meu Bot Track4You")
-6. Digite um username (deve terminar com `_bot`, ex: `meubot_track4you_bot`)
+5. Digite um nome para seu bot (ex: "Meu Bot Track Pixel")
+6. Digite um username (deve terminar com `_bot`, ex: `meubot_trackpixel_bot`)
 7. **COPIE O TOKEN** que o BotFather vai te enviar (parece: `123456789:ABCdefGHIjklMNOpqrsTUVwxyz`)
 
-### Passo 6.2: Adicionar Bot no Track4You
+### Passo 6.2: Adicionar Bot no Track Pixel
 
-1. No Track4You, vá em **"Canal"**
+1. No Track Pixel, vá em **"Canal"**
 2. Clique em **"+ Novo"**
 3. Preencha:
    - **Nome do Canal**: Nome do seu canal/grupo (ex: "Meu Grupo VIP")
-   - **Nome do Bot**: O username do bot que você criou (ex: `meubot_track4you_bot`)
+   - **Nome do Bot**: O username do bot que você criou (ex: `meubot_trackpixel_bot`)
    - **Token do Bot**: O token que o BotFather te deu
 4. Clique em **"Salvar"** ✅
 
@@ -506,7 +506,7 @@ https://api.telegram.org/bot123456789:ABCdefGHIjklMNOpqrsTUVwxyz/setWebhook?url=
 
 ### Passo 8.1: Adicionar Domínio
 
-1. No Track4You, vá em **"Domínios"**
+1. No Track Pixel, vá em **"Domínios"**
 2. Clique em **"+ Novo"**
 3. Digite apenas o domínio (sem https://), ex: `www.meusite.com`
 4. Clique em **"Salvar"** ✅
@@ -556,7 +556,7 @@ Se você ainda não configurou o webhook, é **ESSENCIAL** fazer isso para rastr
 ### Passo 9.1: Verificar se está funcionando
 
 1. Adicione alguém no seu grupo do Telegram (ou entre você mesmo)
-2. Vá no Dashboard do Track4You
+2. Vá no Dashboard do Track Pixel
 3. Veja se aparece uma "Entrada" nas métricas
 
 Se não aparecer, o webhook não está configurado corretamente.
@@ -592,7 +592,7 @@ Agora você tem tudo configurado! O sistema vai:
 ### Erro ao conectar no banco de dados
 - Verifique se o PostgreSQL está rodando
 - Verifique se a senha no `.env` está correta
-- Verifique se o banco `track4you` foi criado
+- Verifique se o banco `trackpixel` foi criado
 
 ### Bot não recebe notificações
 - Verifique se o webhook está configurado corretamente

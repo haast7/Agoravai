@@ -213,7 +213,7 @@ export default function DashboardPage() {
             <Line
               type="monotone"
               dataKey="value"
-              stroke="#9333EA"
+              stroke="#005599"
               strokeWidth={2}
               dot={false}
             />

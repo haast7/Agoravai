@@ -1,4 +1,4 @@
-# 🧪 Guia de Teste Local - Track4You
+# 🧪 Guia de Teste Local - Track Pixel
 
 Este guia explica o que você pode testar localmente e o que precisa de configuração real.
 

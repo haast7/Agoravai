@@ -28,7 +28,7 @@ O webhook é necessário para que o sistema receba notificações quando alguém
 
 ### 2. Obter o Token do Bot
 
-1. No Track4You, vá em **"Canais"**
+1. No Track Pixel, vá em **"Canais"**
 2. Clique no canal que você quer configurar
 3. Copie o **Token do Bot** (parece: `123456789:ABCdefGHIjklMNOpqrsTUVwxyz`)
 
@@ -99,7 +99,7 @@ https://api.telegram.org/botSEU_TOKEN_AQUI/getWebhookInfo
    - Vá no grupo → Administradores → Verifique se o bot está lá
 
 2. **Verifique se o channelId está correto**
-   - No Track4You, vá em Canais → Clique no canal
+   - No Track Pixel, vá em Canais → Clique no canal
    - Verifique se o ID do Canal está correto (deve ser um número negativo, ex: `-1001234567890`)
 
 3. **Verifique se o webhook está configurado**

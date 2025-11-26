@@ -160,7 +160,7 @@ export default function ChannelsPage() {
                 return (
                   <div key={channel.id} className="flex items-center justify-between">
                     <span className="text-sm text-gray-400">
-                      Conexão com a Track4you
+                      Conexão com a Track Pixel
                     </span>
                     <div className="flex items-center gap-2">
                       {status?.bot?.connectedToSystem ? (
@@ -295,9 +295,9 @@ export default function ChannelsPage() {
           <div className="rounded-lg bg-red-600/20 p-4">
             <p className="text-sm text-red-400">
               ⚠️ Importante: Para garantir o correto funcionamento, o bot
-              configurado para a Track4you não deve ser utilizado simultaneamente
+              configurado para a Track Pixel não deve ser utilizado simultaneamente
               em outras plataformas ou para outras finalidades. O uso indevido pode
-              causar interferências e comprometer as funcionalidades da Track4you
+              causar interferências e comprometer as funcionalidades da Track Pixel
             </p>
           </div>
         </Card>
@@ -341,7 +341,7 @@ export default function ChannelsPage() {
               onChange={(e) =>
                 setFormData({ ...formData, botName: e.target.value })
               }
-              placeholder="Ex: mentorbttrack4youbot_bot"
+              placeholder="Ex: mentorbttrackpixelbot_bot"
             />
           </div>
 

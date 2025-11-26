@@ -51,7 +51,7 @@ export class MetaPixelService {
     customData?: Record<string, any>
   ): Promise<boolean> {
     const event: MetaPixelEvent = {
-      event_name: 'Lead',
+      event_name: 'EnterChannel',
       event_time: Math.floor(Date.now() / 1000),
       action_source: 'website',
       user_data: {
@@ -59,7 +59,6 @@ export class MetaPixelService {
         client_user_agent: userAgent,
       },
       custom_data: {
-        content_name: 'Enter Channel',
         ...customData,
       },
     }

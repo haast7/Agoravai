@@ -1,4 +1,4 @@
-# Track4You - Sistema de Tracking para Conversões no Telegram
+# Track Pixel - Sistema de Tracking para Conversões no Telegram
 
 Sistema completo de tracking de conversões integrado com Meta Pixel e Telegram Bot.
 

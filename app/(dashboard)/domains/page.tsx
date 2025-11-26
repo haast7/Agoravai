@@ -130,10 +130,10 @@ export default function DomainsPage() {
             <Input
               value={newDomain}
               onChange={(e) => setNewDomain(e.target.value)}
-              placeholder="www.track4you.app"
+              placeholder="www.trackpixel.app"
             />
             <p className="mt-2 text-xs text-gray-400">
-              Não inclua https://, //, ou slugs. Digite apenas o domínio - ex: www.track4you.app
+              Não inclua https://, //, ou slugs. Digite apenas o domínio - ex: www.trackpixel.app
             </p>
           </div>
 
