@@ -16,7 +16,7 @@ export default function DebugPage() {
   const loadData = async () => {
     try {
       const [funnelsData, eventsData] = await Promise.all([
-        apiRequest<any[]>('/debug/funnels'),
+        apiRequest<{ funnels: any[] }>('/debug/funnels'),
         apiRequest<any>('/debug/events'),
       ])
       setFunnels(funnelsData.funnels || [])
