@@ -24,10 +24,21 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json(channels)
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao buscar canais:', error)
+    
+    if (error.code === 'P1001' || error.message?.includes('Can\'t reach database server')) {
+      return NextResponse.json(
+        { error: 'Não foi possível conectar ao banco de dados' },
+        { status: 500 }
+      )
+    }
+    
     return NextResponse.json(
-      { error: 'Erro ao buscar canais' },
+      { 
+        error: 'Erro ao buscar canais',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     )
   }

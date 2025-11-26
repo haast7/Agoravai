@@ -35,17 +35,31 @@ export async function getUserFromToken(token: string | null | undefined) {
   const payload = verifyToken(token)
   if (!payload) return null
 
-  const user = await prisma.user.findUnique({
-    where: { id: payload.userId },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-    },
-  })
+  try {
+    // Verificar conexão com banco antes de fazer query
+    if (!process.env.DATABASE_URL) {
+      console.error('DATABASE_URL não configurada')
+      return null
+    }
 
-  return user
+    const user = await prisma.user.findUnique({
+      where: { id: payload.userId },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
+    })
+
+    return user
+  } catch (error: any) {
+    console.error('Erro ao buscar usuário do token:', error)
+    // Em caso de erro de conexão, retornar null para evitar quebrar a autenticação
+    // O middleware vai tratar isso adequadamente
+    return null
+  }
 }
+
 
 
 
