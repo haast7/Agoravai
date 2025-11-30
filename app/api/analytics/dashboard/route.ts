@@ -37,11 +37,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { 
           error: 'Erro ao conectar ao banco de dados',
-          details: process.env.NODE_ENV === 'development' ? {
+          details: {
             code: error.code,
-            message: error.message,
-            hint: 'Verifique se o PostgreSQL está rodando e se o DATABASE_URL está correto no arquivo .env'
-          } : undefined
+            hint: 'Verifique se o PostgreSQL está rodando e se o DATABASE_URL está configurado corretamente nas variáveis de ambiente da Vercel',
+            ...(process.env.NODE_ENV === 'development' && { message: error.message })
+          }
         },
         { status: 500 }
       )
@@ -52,11 +52,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { 
           error: 'Erro de autenticação no banco de dados',
-          details: process.env.NODE_ENV === 'development' ? {
+          details: {
             code: error.code,
-            message: error.message,
-            hint: 'Verifique se a senha do PostgreSQL no DATABASE_URL está correta'
-          } : undefined
+            hint: 'Verifique se a senha do PostgreSQL no DATABASE_URL está correta nas variáveis de ambiente da Vercel',
+            ...(process.env.NODE_ENV === 'development' && { message: error.message })
+          }
         },
         { status: 500 }
       )
@@ -67,11 +67,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { 
           error: 'Banco de dados não encontrado',
-          details: process.env.NODE_ENV === 'development' ? {
+          details: {
             code: error.code,
-            message: error.message,
-            hint: 'Execute: CREATE DATABASE track4you; no PostgreSQL'
-          } : undefined
+            hint: 'O banco de dados track4you não existe. Execute: CREATE DATABASE track4you; no PostgreSQL e depois: npx prisma db push',
+            ...(process.env.NODE_ENV === 'development' && { message: error.message })
+          }
         },
         { status: 500 }
       )

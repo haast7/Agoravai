@@ -45,12 +45,44 @@ export async function authenticateRequest(request: NextRequest) {
     try {
       await prisma.$connect()
     } catch (dbError: any) {
-      console.error('Erro ao conectar ao banco no middleware:', dbError)
+      console.error('❌ [Middleware] Erro ao conectar ao banco:', {
+        code: dbError.code,
+        message: dbError.message,
+        name: dbError.name,
+        hasDatabaseUrl: !!process.env.DATABASE_URL,
+        databaseUrlPreview: process.env.DATABASE_URL 
+          ? `${process.env.DATABASE_URL.split('@')[0]}@***` 
+          : 'Não configurado',
+        environment: process.env.NODE_ENV,
+      })
+      
+      // Log detalhado para diagnóstico
+      if (dbError.code === 'P1001') {
+        console.error('❌ [Middleware] Erro P1001: Não foi possível alcançar o servidor do banco')
+        console.error('❌ [Middleware] Verifique: PostgreSQL está rodando? DATABASE_URL está correto?')
+      } else if (dbError.code === 'P1000') {
+        console.error('❌ [Middleware] Erro P1000: Falha de autenticação')
+        console.error('❌ [Middleware] Verifique: Senha no DATABASE_URL está correta?')
+      } else if (dbError.code === 'P1003') {
+        console.error('❌ [Middleware] Erro P1003: Banco de dados não existe')
+        console.error('❌ [Middleware] Verifique: Banco track4you foi criado?')
+      }
+      
       return {
         error: NextResponse.json(
           { 
             error: 'Erro ao conectar ao banco de dados',
-            details: process.env.NODE_ENV === 'development' ? dbError.message : undefined
+            details: {
+              code: dbError.code,
+              message: dbError.message,
+              hint: dbError.code === 'P1001' 
+                ? 'Verifique se o PostgreSQL está rodando e se o DATABASE_URL está correto'
+                : dbError.code === 'P1000'
+                ? 'Verifique se a senha no DATABASE_URL está correta'
+                : dbError.code === 'P1003'
+                ? 'Verifique se o banco de dados track4you foi criado'
+                : 'Verifique as configurações do banco de dados'
+            }
           },
           { status: 500 }
         ),
