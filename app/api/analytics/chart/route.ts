@@ -30,11 +30,32 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data)
   } catch (error: any) {
-    console.error('Erro ao buscar dados do gráfico:', error)
+    console.error('❌ [Chart API] Erro ao buscar dados do gráfico:', error)
+    console.error('❌ [Chart API] Código do erro:', error.code)
+    console.error('❌ [Chart API] Mensagem:', error.message)
+    
+    // Erros de conexão com o banco
+    if (error.code === 'P1001' || error.message?.includes('Can\'t reach database server') || error.message?.includes('connect ECONNREFUSED')) {
+      return NextResponse.json(
+        { 
+          error: 'Erro ao conectar ao banco de dados',
+          details: process.env.NODE_ENV === 'development' ? {
+            code: error.code,
+            message: error.message,
+            hint: 'Verifique se o PostgreSQL está rodando e se o DATABASE_URL está correto no arquivo .env'
+          } : undefined
+        },
+        { status: 500 }
+      )
+    }
+    
     return NextResponse.json(
       { 
         error: 'Erro ao buscar dados do gráfico',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? {
+          message: error.message,
+          code: error.code
+        } : undefined
       },
       { status: 500 }
     )

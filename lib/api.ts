@@ -32,6 +32,14 @@ export async function apiRequest<T>(
       data: errorData,
     }
     
+    // Log detalhado em desenvolvimento
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`❌ [API] Erro ${response.status} em ${endpoint}:`, errorData)
+      if (errorData.details) {
+        console.error('❌ [API] Detalhes:', errorData.details)
+      }
+    }
+    
     throw error
   }
 

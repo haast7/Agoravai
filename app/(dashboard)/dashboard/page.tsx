@@ -49,8 +49,46 @@ export default function DashboardPage() {
       setMetrics(metricsData)
       setChartData(chartDataRes)
       setRetention(retentionData)
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ [Dashboard] Erro ao carregar dados:', error)
+      
+      // Mostrar erro mais detalhado no console
+      if (error.response) {
+        console.error('❌ [Dashboard] Status:', error.response.status)
+        console.error('❌ [Dashboard] Detalhes:', error.response.data)
+        
+        // Se for erro de banco de dados, mostrar mensagem mais clara
+        if (error.response.data?.error?.includes('banco de dados')) {
+          console.error('🔧 [Dashboard] SOLUÇÃO: Verifique se:')
+          console.error('   1. O PostgreSQL está rodando')
+          console.error('   2. O arquivo .env tem DATABASE_URL correto')
+          console.error('   3. Execute: npx prisma generate && npx prisma db push')
+        }
+      }
+      
+      // Definir valores padrão para evitar quebra da UI
+      if (!metrics) {
+        setMetrics({
+          pageviews: 0,
+          clicks: 0,
+          entries: 0,
+          exits: 0,
+          pageviewsChange: 0,
+          clicksChange: 0,
+          entriesChange: 0,
+          exitsChange: 0,
+          conversionRate: 0,
+          clickRate: 0,
+          entryRate: 0,
+          retentionRate: 0,
+        })
+      }
+      if (!chartData.length) {
+        setChartData([])
+      }
+      if (!retention.length) {
+        setRetention([])
+      }
     } finally {
       setLoading(false)
       setRefreshing(false)

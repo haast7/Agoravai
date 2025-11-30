@@ -27,11 +27,21 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(retention)
   } catch (error: any) {
-    console.error('Erro ao buscar retenção:', error)
+    console.error('❌ [Retention API] Erro ao buscar retenção:', error)
+    console.error('❌ [Retention API] Código do erro:', error.code)
+    console.error('❌ [Retention API] Mensagem:', error.message)
     
-    if (error.code === 'P1001' || error.message?.includes('Can\'t reach database server')) {
+    // Erros de conexão com o banco
+    if (error.code === 'P1001' || error.message?.includes('Can\'t reach database server') || error.message?.includes('connect ECONNREFUSED')) {
       return NextResponse.json(
-        { error: 'Não foi possível conectar ao banco de dados' },
+        { 
+          error: 'Erro ao conectar ao banco de dados',
+          details: process.env.NODE_ENV === 'development' ? {
+            code: error.code,
+            message: error.message,
+            hint: 'Verifique se o PostgreSQL está rodando e se o DATABASE_URL está correto no arquivo .env'
+          } : undefined
+        },
         { status: 500 }
       )
     }
@@ -39,7 +49,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Erro ao buscar retenção',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? {
+          message: error.message,
+          code: error.code
+        } : undefined
       },
       { status: 500 }
     )
